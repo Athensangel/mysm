@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		 <!--  <package name="com.mysm.model"/> -->
+		 <typeAlias alias="CustomerVo" type="com.mysm.model.CustomerVo"/>
+		 <typeAlias alias="Message" type="com.mysm.model.Message"/>
+	</typeAliases>
+	<mappers> 
+		<!-- 通过mapper接口加载映射文件 -->  
+		<mapper resource="com/mysm/mapper/CustomerMapper.xml"/> 
+		<mapper resource="com/mysm/mapper/MessageMapper.xml"/> 
+	</mappers>
+</configuration>  

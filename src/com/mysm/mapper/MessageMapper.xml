@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mysm.mapper.MessageMapper">
+	<resultMap type="Message" id="MessageResult">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="createTime" column="create_time" />
+		<result property="content" column="content" />
+		<result property="email" column="email" />
+	</resultMap>
+	
+	<!--查询 -->
+	<select id="queryAllMessage" resultMap="MessageResult">
+		select * from message
+	</select>
+	
+	<!--添加 -->
+	<insert id="insertMessages">
+		insert into message
+		(id,name,create_time,content,email)
+		values
+		(#{id},#{name},#{createTime},#{content},#{email})
+	</insert>
+	
+	
+	<!--删除 -->
+	<delete id="delMessage">
+		delete from message where id=#{id}
+	</delete>
+	
+	
+	<!--更新 -->
+	<update id="updateMessage">
+		update message set
+		name=#{name},create_time=#{createTime},content=#{content},email=#{email}
+		<where>
+		 id = #{id}
+		</where>
+	</update>
+	
+	
+	<!-- 通过id来查询 -->
+	<select id="findMessageById" resultMap="MessageResult">
+		select a.id,a.name,a.create_time,a.content,a.email from message a
+		where a.id = #{id}
+	</select>
+	
+	<!-- 批量新增 -->
+	<insert id="batchInsertMessage" parameterType="java.util.List">  
+	   insert into message
+			(id,name,create_time,content,email)
+	    VALUES   
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	        (#{item.id},#{item.name},#{item.createTime},#{item.content},#{item.email})  
+	    </foreach>  
+   </insert>  
+   
+   <!-- 批量修改 -->
+   <update id="batchUpdateMessage" parameterType="java.util.List">  
+    UPDATE message SET name = "甄宝宝好萌啊" WHERE id IN  
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")" >  
+        #{item}  
+    </foreach>  
+   </update>  
+   
+   <delete id="batchDeleteMessage" parameterType="java.util.List">  
+    DELETE FROM message WHERE id IN  
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">   
+        #{item}   
+    </foreach>  
+</delete> 
+	
+</mapper>

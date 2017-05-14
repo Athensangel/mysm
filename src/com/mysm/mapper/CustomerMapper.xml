@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mysm.mapper.CustomerMapper">
+	<resultMap type="CustomerVo" id="customerVoResult">
+		<result property="cid" column="toid"/>
+		<result property="name" column="name"/>
+		<result property="gender" column="gender"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="orders" column="orders"/>
+	</resultMap>
+	
+	<!-- 查询 -->
+	<select id="queryAllCustomers"  resultMap="customerVoResult">
+		select * from customer
+	</select>
+	
+	<!-- 添加  -->
+	<insert id="insertCustomers" parameterType="CustomerVo">
+		insert into customer
+		(cid,name,gender,phone,email,orders)
+		 values
+		 (#{cid},#{name},#{gender},#{phone},#{email},#{orders})
+	</insert>
+	
+	<!-- 删除 -->
+	<delete id="delCustomers"  parameterType="CustomerVo">
+		delete from customer where cid=#{cid};
+	</delete>
+	
+	<!-- 更新 -->
+	<update id="updateCustomers">
+		update customer set name=#{name},gender=#{gender},phone=#{phone},email=#{email},orders=#{orders} where cid=#{cid}
+	</update>
+	
+	<!-- 修改 -->
+	<select id="modifiAllCustomers"  resultMap="customerVoResult">
+		select a.cid, a.name, a.gender,a.phone,a.email,a.orders FROM customer a
+		WHERE a.cid = #{cid}
+	</select>
+</mapper>
